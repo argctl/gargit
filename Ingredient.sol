@@ -16,9 +16,8 @@ contract Ingredient {
   constructor (address _location,
     string memory _name,
     string[] memory _chemicals,
-    address[] memory stash,
     int[] memory _amounts,
-    int _timer, uint _spoil)
+    int _timer, uint _spoil, uint amount)
   {
     name = _name;
     timer = _timer;
@@ -27,6 +26,11 @@ contract Ingredient {
     spoiled = spoil + block.timestamp > block.timestamp;
     require(_chemicals.length == _amounts.length, "mixture");
     for (uint i = 0; i < _chemicals.length; i++) {
+      // TODO - chemical needs law of conservation of mass
+      // Note on this, an imaginary number system would exist if conservation of mass isn't observed
+      // this means that if we can make some mass negative or overly positive, over time in a direction we have negative mass 
+      // this could be a proof of directional time as defined with gravity
+      // dark matter is negative mass, so we can assume time travel in observabilty because of conservation of mass.
       require(Chemical(_chemicals[i]).reaction(_chemicals[i], _amounts[i]), "reaction");
     }
   }
