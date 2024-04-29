@@ -31,11 +31,17 @@ contract Food {
   }
   function prepare (address[] memory materials) public returns (uint) {
     for (uint i = 0; i < recipe.length; i++) {
-      recipe[i];    
+      Ingredient ingredient = Ingredient(materials[i]);
+      require(ingredient.name == recipe[i], "colloquial");
+      ingredient.use(amounts[recipe[i]]);
     }   
   }
 
-  function consume (
+  function consume (uint burn) returns (uint caloric) {
+    require(caloric - burn >= 0);
+    caloric = caloric - burn;
+    return caloric;
+  }
 
 }
 
